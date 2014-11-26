@@ -16,7 +16,7 @@ BorderColor Black
 """
 INHERITANCE = "{parent} <|-- {child}\n"
 COMPOSITION = "{parent} *-- {child}\n"
-CLASSMETHOD = "{child}:{method}\n"
+CLASSMETHOD = "{child} : {method}\n"
 
 
 def getCodeFromFile(filePath):
@@ -59,13 +59,13 @@ def toPlantUML(module, outputFile):
 
     with open(outputFile, "w") as f:
         f.write(STYLE)
-        title = TITLE.format(package="test")
+        title = TITLE.format(package=module)
         f.write(title)
 
         classDescriptors = pyclbr.readmodule(module)
         for className, classData in classDescriptors.items():
             child = className
-            methods = [m + "()" for m in classData.methods]
+            methods = sorted([m + "()" for m in classData.methods])
             parents = [p.name if hasattr(p, "name") else str(p) for p in classData.super]
 
             for parent in parents:
