@@ -1,3 +1,20 @@
+"""TODO
+
+we have support for scanning a folder for modules now and analyzing
+them in a single model: how to add support for any modules and packages?
+
+why can some modules not be read by pclbr?
+
+how to get the fields of a class and global variables of a module?
+
+module namespaces (optional)?
+
+add commandline interface (target, output, style, verbosity)
+
+make it a pypi package
+
+"""
+
 import os
 import sys
 import pydoc
