@@ -4,13 +4,14 @@ import pyclbr
 import pkgutil
 import setuptools
 
-
+STARTUML = "@startuml\n"
+ENDUML = "@enduml\n"
 TITLE = "title {package}\n"
 STYLE = """
 skinparam class {
-BackgroundColor White
-ArrowColor Grey
-BorderColor Black
+    BackgroundColor White
+    ArrowColor Grey
+    BorderColor Black
 }
 
 """
@@ -58,6 +59,7 @@ def toPlantUML(module, outputFile):
         module = os.path.splitext(os.path.basename(module))[0]
 
     with open(outputFile, "w") as f:
+        f.write(STARTUML)
         f.write(STYLE)
         title = TITLE.format(package=module)
         f.write(title)
@@ -75,6 +77,7 @@ def toPlantUML(module, outputFile):
             for method in methods:
                 methodLine = getMethodLine(child, method)
                 f.write(methodLine)
+        f.write(ENDUML)
 
     os.system("notepad " + outputFile)
 
