@@ -132,7 +132,7 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     root = args[0]
 
-    if "/" in root or "\\" in root:
+    if "/" in root or "\\" in root or root in (".", ".."):
         # It's a directory path.
         sys.path.insert(0, root)
     else:
@@ -157,3 +157,6 @@ if __name__ == "__main__":
     }
 
     PlantUmlWriter(model).write(outputFile)
+
+
+# python inspecttest.py "c:\python34\lib\logging"
