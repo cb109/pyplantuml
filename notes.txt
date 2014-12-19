@@ -1,0 +1,33 @@
+use pylint's pyreverse to do the analysis of module/package.
+
+pyreverse then has a writer module that can output the result as either vcg or dot.
+dot is then visualized as a png image.
+
+how could we hook into this?
+
+we could write a custom writer class that has the same interface as the pyreverse.writer.DiagramWriter
+this is a template class that needs its successor to implement some methods and it also needs
+a printer instance to work.
+
+template methods are:
+
+set_printer
+get_title
+get_values
+close_graph
+
+the printer class instance must provide the following methods:
+
+open_graph
+emit_node
+emit_edge
+close_graph
+
+the nodes would be classes and maybe global data/functions.
+the edges would be relationsships between nodes like class inheritance, composition or aggregation.
+inside the pyreverse module they are called: specialization, implements, association
+
+
+so to sum it up, we need a custom writer that takes a diagram and uses
+a custom printer to convert this to a plantuml representation of the 
+diagram.
