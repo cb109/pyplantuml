@@ -1,6 +1,5 @@
 import os
 import sys
-import pprint
 
 from pyplantuml import adapter
 from pyplantuml import writer
@@ -57,9 +56,13 @@ example:
     diadefs = fixDiagramTitle(diadefs, target)
 
     umls = writer.toPlantUml(diadefs, [])  # TODO use plantumlArgs instead of []
-    images = writer.visualize(umls)
+    for uml in umls:
+        print("Created:", os.path.abspath(uml))
 
-    pprint.pprint(images)
+    images = writer.visualize(umls)
+    if images:
+        for image in images:
+            print("Created:", os.path.abspath(image))
 
 
 if __name__ == "__main__":
