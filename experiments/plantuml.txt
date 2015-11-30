@@ -1,0 +1,8 @@
+@startuml
+
+skinparam class {
+    BackgroundColor White
+    ArrowColor Grey
+    BorderColor Black
+}
+@enduml
