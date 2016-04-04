@@ -1,6 +1,6 @@
 # pyplantuml
 
-Creates UML diagrams from python source code.
+Creates UML diagrams (package and class structure) from Python source code.
 
 Build on top of pylint's pyreverse to do the static code analysis and supports most of its original commandline interface.
 
@@ -46,3 +46,33 @@ After installation it is available from the commandline as two commands, see bel
 
 pyplantuml is a great way to visualize the data structure of an existing package. It can be used on custom packages as well as builtins, as some of the examples below illustrate.
 
+### ast
+![](docs/ast_classes.png)
+
+### logging
+![](docs/logging_classes.png)
+
+### maxjob
+![](docs/maxjob_packages.png)
+![](docs/maxjob_classes.png)
+
+### pluggy
+![](docs/pluggy_classes.png)
+
+### re
+![](docs/re_classes.png)
+
+### setuptools
+![](docs/setuptools_classes.png)
+
+### SocketServer
+![](docs/SocketServer_classes.png)
+
+### tokenize
+![](docs/tokenize_classes.png)
+
+### tox
+![](docs/tox_classes.png)
+
+### urllib
+![](docs/urllib_classes.png)
