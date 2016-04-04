@@ -1,5 +1,7 @@
 # pyplantuml
 
+![](docs/pyplantuml_packages.png)
+
 Creates UML diagrams (package and class structure) from Python source code.
 
 Build on top of pylint's pyreverse to do the static code analysis and supports most of its original commandline interface.
@@ -76,3 +78,6 @@ pyplantuml is a great way to visualize the data structure of an existing package
 
 ### urllib
 ![](docs/urllib_classes.png)
+
+### webbrowser
+![](docs/webbrowser_classes.png)
