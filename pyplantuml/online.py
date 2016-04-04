@@ -11,10 +11,11 @@ except ImportError:  # 2.x
 
 ENC = "utf-8"
 URL_FORM = "http://www.plantuml.com/plantuml/form"
-URL_PNG = '"(?P<png>http://www.plantuml.com:80/plantuml/png/\w+)"'
+IMAGE_URL_PATTERN = (r"(?P<png>http://www\.plantuml\.com:80/"
+                     "plantuml/png/[a-zA-Z0-9_\-]+)")
 
 
-def getResultFromPlantUmlServer(uml):
+def _getResultFromPlantUmlServer(uml):
     """Takes either uml text or a file as input."""
     if os.path.isfile(uml):
         with open(uml) as f:
@@ -28,12 +29,18 @@ def getResultFromPlantUmlServer(uml):
     return html
 
 
-def displayInBrowser(html):
+def _displayInBrowser(html):
     """Extracts the png url from the
     html and opens it in the browser."""
-    pattern = re.compile(URL_PNG)
+    pattern = re.compile(IMAGE_URL_PATTERN)
     match = pattern.search(html)
     if match:
         url = match.group("png")
         webbrowser.open(url)
         return url
+
+
+def displayOnline(uml):
+    html = _getResultFromPlantUmlServer(uml)
+    url = _displayInBrowser(html)
+    return url

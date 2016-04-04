@@ -7,11 +7,11 @@ setuptools.setup(
     name="pyplantuml",
     version="0.1.0",
     description="Creates UML diagrams from python source code.",
-    long_description=open("README.rst").read(),
+    long_description=open("README.md").read(),
     keywords="uml, code analysis, overview, quickstart, diagram, OOP",
-    url="https://cb109@bitbucket.org/cb109/pyplantuml.git",
+    url="https://github.com/cb109/pyplantuml.git",
     author="Christoph Buelter",
-    author_email="c.buelter@arcor.de",
+    author_email="buelter.christoph@gmail.com",
     packages=setuptools.find_packages(),
     install_requires=[
         "astroid==1.3.2",
@@ -19,7 +19,8 @@ setuptools.setup(
     ],
     entry_points={
         "console_scripts": [
-            "pyplantuml=pyplantuml.cli:main",
+            "pyplantuml=pyplantuml.cli:convert_local",
+            "pyplantuml-web=pyplantuml.cli:convert_online",
         ],
     }
 )

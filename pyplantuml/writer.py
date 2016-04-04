@@ -2,8 +2,6 @@ import os
 
 from pylint.pyreverse.utils import is_interface
 
-from pyplantuml import online
-
 
 EMPTY = "\n"
 STARTUML = "@startuml\n"
@@ -159,12 +157,6 @@ def displayLocalImage(uml, jar):
     return png
 
 
-def displayOnline(uml, _):
-    html = online.getResultFromPlantUmlServer(uml)
-    url = online.displayInBrowser(html)
-    return url
-
-
 def toPlantUml(diadefs, plantumlArgs):
     umls = []
     try:
@@ -176,13 +168,15 @@ def toPlantUml(diadefs, plantumlArgs):
     return umls
 
 
-def visualize(umls):
+def visualizeLocally(umls):
     jar = getLocalPlantUmlPath()
-    display = displayLocalImage if jar else displayOnline
+    if not jar:
+        print("Could not find a plantuml.jar on PATH.")
+        return []
 
     images = []
     for uml in umls:
         images.append(
-            display(uml, jar)
+            displayLocalImage(uml, jar)
         )
     return images

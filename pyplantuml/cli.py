@@ -3,6 +3,7 @@ import sys
 
 from pyplantuml import adapter
 from pyplantuml import writer
+from pyplantuml import online
 
 
 def parseArgs(args):
@@ -25,45 +26,57 @@ def fixDiagramTitle(diadefs, title):
     return diadefs
 
 
-def main():
+def main(convert_online=False):
     args = sys.argv[1:]
     if not args:
         print ("""
 pyplantuml
 ----------
 
-usage:
+Usage:
 
-    pyplantuml [pyreverse-options] [--] [plantuml-options] <package>
+    pyplantuml [pyreverse-options] <package>
 
-example:
+        If a plantuml.jar can be found on PATH, it will automatically be
+        called afterwards to convert the text files to images.
 
-    pyplantumtl -f ALL -- -w 1024 -h 512 urllib
+    pyplantuml-web [pyreverse-options] <package>
+
+        Will use the online form on www.plantuml.com for conversion and
+        display the result in your default browser.
+
+        Do NOT use for sensitive data!
+
+Example:
+
+    pyplantumtl -f ALL urllib
         """)
-        return 1
-
-    # TODO: Make this have an effect
-    # if "--" in args:
-    #     idx = args.index("--")
-    #     pyreverseArgs = args[:idx]
-    #     plantumlArgs = args[idx:]
-    # else:
-    #     pyreverseArgs, plantumlArgs = args, []
+        return False
 
     target = getTargetPackage(args)
 
     diadefs = adapter.getDiagramDefinitions(args)
     diadefs = fixDiagramTitle(diadefs, target)
 
-    umls = writer.toPlantUml(diadefs, [])  # TODO use plantumlArgs instead of []
+    umls = writer.toPlantUml(diadefs, [])
     for uml in umls:
-        print("Created:", os.path.abspath(uml))
+        umlpath = os.path.abspath(uml)
+        print("Created: {0}".format(umlpath))
 
-    images = writer.visualize(umls)
-    if images:
+        # Conversion using the online form.
+        if convert_online:
+            online.displayOnline(umlpath)
+            continue
+
+        images = writer.visualizeLocally(umls)
         for image in images:
-            print("Created:", os.path.abspath(image))
+            imagepath = os.path.abspath(image)
+            print("Created: {0}".format(imagepath))
 
 
-if __name__ == "__main__":
+def convert_local():
     main()
+
+
+def convert_online():
+    main(convert_online=True)
