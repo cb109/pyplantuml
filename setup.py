@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="pyplantuml",
-    version="0.1.5",
+    version="0.1.51",
     description="Creates UML diagrams from python source code.",
     long_description=open("README.md").read(),
     keywords="uml, code analysis, overview, quickstart, diagram, OOP",
