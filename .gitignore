@@ -5,3 +5,5 @@
 *.egg*
 dist
 build
+
+venv
